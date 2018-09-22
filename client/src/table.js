@@ -21,10 +21,10 @@ class table extends Component {
         <th>{r.formName}</th>
         <th>{this.state.numofSub} </th>
         <th>
-          <Link to={`/submitPage/${index}`}>Submit PageLink</Link>
+          <Link to={`/submitPage/${r._id}`}>Submit PageLink</Link>
         </th>
         <th>
-          <Link to={`/submissionPage/${index}`}>Submission page Link </Link>
+          <Link to={`/submissionPage/${r._id}`}>Submission page Link </Link>
         </th>
       </tr>
     ));

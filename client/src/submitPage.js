@@ -1,52 +1,19 @@
 import React, { Component } from 'react';
 class submitPage extends Component {
   state = {
-    arr: [
-      {
-        id: 0,
-        name: 'firstForm',
-        input: [
-          {
-            inputLabel: 'wowLabel',
-            inputType: 'text',
-            inputValue: 'wowValue'
-          },
-          {
-            inputLabel: 'wowLabel2',
-            inputType: 'text',
-            inputValue: 'wowValue2'
-          }
-        ]
-      },
-      {
-        id: 1,
-        name: 'secondForm',
-        input: [
-          {
-            inputLabel: 'wowLabel',
-            inputType: 'text',
-            inputValue: 'wowValue'
-          },
-          {
-            inputLabel: 'wowLabel2',
-            inputType: 'text',
-            inputValue: 'wowValue2'
-          }
-        ]
-      }
-    ],
+    arr: [],
     inputData: {
       id: '',
       inputArr: ['']
     }
   };
-  // componentWillMount() {
-  //   fetch('/api/items')
-  //     .then(data => data.json())
-  //     .then(inputs =>
-  //       this.setState(state => ({ arr: [state.arr, ...inputs] }))
-  //     );
-  // }
+  componentWillMount() {
+    fetch('/api/items')
+      .then(data => data.json())
+      .then(inputs =>
+        this.setState(state => ({ arr: [state.arr, ...inputs] }))
+      );
+  }
   handleChangeInp = e => {
     const index = Number(e.target.name);
     const { inputData } = this.state;
@@ -54,8 +21,9 @@ class submitPage extends Component {
     this.setState({ inputData });
   };
   render() {
-    const { id } = this.props.match.params;
-    const arr = this.state.arr.find(a => a.id === Number(id));
+    const id = this.props.match.params.id;
+    console.log('this is the id from link' + id);
+    const arr = this.state.arr.find(a => console.log('this is a._id' + a._id));
 
     var inner;
     var name;
@@ -67,7 +35,7 @@ class submitPage extends Component {
             <label>{inputs.inputLabel}</label>
             <input
               name={index}
-              //value={inputs.inputValue}
+              value={inputs.inputValue}
               type={inputs.inputType}
               onChange={this.handleChangeInp}
             />
