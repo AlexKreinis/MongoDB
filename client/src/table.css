@@ -1,0 +1,11 @@
+.appTable {
+  font-size: 50px;
+  font-family: ariel;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}

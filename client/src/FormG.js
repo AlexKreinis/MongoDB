@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import './FormG.css';
 
 class FormG extends Component {
@@ -40,6 +41,7 @@ class FormG extends Component {
       method: 'POST',
       body: JSON.stringify({ inputs: inputs })
     });
+    this.props.history.push('/');
   };
   render() {
     const inputs = this.state.inputs.map((r, i) => (

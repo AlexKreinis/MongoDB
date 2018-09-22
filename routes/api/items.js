@@ -9,11 +9,12 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
+  console.log(req.body);
   const newItem = new Item({
-    input: req.body,
-    inputLabel: req.body.inputLabel,
-    inputType: req.body.inputType,
-    inputValue: req.body.inputValue
+    input: req.body
+    // inputLabel: req.body.inputLabel,
+    // inputType: req.body.inputType,
+    // inputValue: req.body.inputValue
   });
   newItem.save().then(item => res.json(item));
 });
