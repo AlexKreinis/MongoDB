@@ -10,11 +10,10 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   console.log(req.body);
+  //const { inputs, formName } = req.body;
   const newItem = new Item({
-    input: req.body
-    // inputLabel: req.body.inputLabel,
-    // inputType: req.body.inputType,
-    // inputValue: req.body.inputValue
+    formName: req.body.formName,
+    inputs: req.body.inputs
   });
   newItem.save().then(item => res.json(item));
 });

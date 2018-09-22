@@ -4,54 +4,27 @@ import './table.css';
 
 class table extends Component {
   state = {
-    arr: [
-      {
-        id: 1,
-        name: 'firstForm',
-        input: [
-          {
-            inputLabel: 'wowLabel',
-            inputType: 'wowType',
-            inputValue: 'wowValue'
-          },
-          {
-            inputLabel: 'wowLabel2',
-            inputType: 'wowType2',
-            inputValue: 'wowValue2'
-          }
-        ]
-      },
-      {
-        id: 2,
-        name: 'secondForm',
-        input: [
-          {
-            inputLabel: 'wowLabel',
-            inputType: 'wowType',
-            inputValue: 'wowValue'
-          },
-          {
-            inputLabel: 'wowLabel2',
-            inputType: 'wowType2',
-            inputValue: 'wowValue2'
-          }
-        ]
-      }
-    ],
-    numofSub: 1
+    arr: [],
+    numofSub: 0
   };
-
+  componentWillMount() {
+    fetch('/api/items')
+      .then(data => data.json())
+      .then(inputs =>
+        this.setState(state => ({ arr: [state.arr, ...inputs] }))
+      );
+  }
   render() {
-    const data = this.state.arr.map(r => (
-      <tr>
-        <th>{r.id}</th>
-        <th>{r.name}</th>
+    const data = this.state.arr.map((r, index) => (
+      <tr key={index}>
+        <th>{index}</th>
+        <th>{r.formName}</th>
         <th>{this.state.numofSub} </th>
         <th>
-          <Link to={`/submitPage/${r.id}`}>Submit PageLink</Link>
+          <Link to={`/submitPage/${index}`}>Submit PageLink</Link>
         </th>
         <th>
-          <Link to={`/submissionPage/${r.id}`}>Submission page Link </Link>
+          <Link to={`/submissionPage/${index}`}>Submission page Link </Link>
         </th>
       </tr>
     ));

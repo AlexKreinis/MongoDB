@@ -4,12 +4,17 @@ import './FormG.css';
 
 class FormG extends Component {
   state = {
-    formName: '',
+    formName: 'Test',
     inputs: [
       {
         inputLabel: 'label',
         inputType: 'text',
         inputValue: 'value'
+      },
+      {
+        inputLabel: 'label2',
+        inputType: 'text',
+        inputValue: 'value2'
       }
     ],
     tempInput: {
@@ -36,10 +41,14 @@ class FormG extends Component {
 
   sendingData = () => {
     var inputs = this.state.inputs;
+    var formName = this.state.formName;
     console.log(inputs);
     fetch('/api/items', {
       method: 'POST',
-      body: JSON.stringify({ inputs: inputs })
+      body: JSON.stringify({ formName: formName, inputs: inputs }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
     this.props.history.push('/');
   };
