@@ -3,10 +3,18 @@ const Schema = mongoose.Schema;
 
 //create Schema
 
+// const DataSchema = new Schema({
+//   name: {
+//     type: String,
+//     required: true
+//   }
+// });
 const DataSchema = new Schema({
-  name: {
-    type: String,
-    required: true
+  inputData: {
+    formID: {
+      type: String
+    },
+    inputArr: [String]
   }
 });
 

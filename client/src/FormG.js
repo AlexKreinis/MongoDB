@@ -55,14 +55,18 @@ class FormG extends Component {
   render() {
     const inputs = this.state.inputs.map((r, i) => (
       <div key={i}>
-        {r.inputLabel}{' '}
-        <input type={r.inputType} value={r.inputValue} label={r.inputLabel} />
+        <label for={r.inputLabel}> {r.inputLabel} </label>
+        <input
+          type={r.inputType}
+          placeholder={r.inputValue}
+          id={r.inputLabel}
+        />
       </div>
     ));
     const formName = this.state.formName;
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
+      <div className="formG">
+        <form className="form-maker" onSubmit={this.handleSubmit}>
           Label:
           <input name="inputLabel" type="text" onChange={this.handleChange} />
           Type:
@@ -74,10 +78,12 @@ class FormG extends Component {
           <button>Submit</button>
         </form>
 
-        <h1> The form : </h1>
-        <h1>{formName}</h1>
-        <div className="form">{inputs}</div>
-        <button onClick={this.sendingData}>Submit</button>
+        <div className="form-display">
+          <h1> The Form </h1>
+          <h2>Form Name : {formName}</h2>
+          {inputs}
+          <button onClick={this.sendingData}>Submit</button>
+        </div>
       </div>
     );
   }

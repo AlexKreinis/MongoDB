@@ -15,19 +15,23 @@ class table extends Component {
       );
   }
   render() {
-    const data = this.state.arr.map((r, index) => (
-      <tr key={index}>
-        <th>{index}</th>
-        <th>{r.formName}</th>
-        <th>{this.state.numofSub} </th>
-        <th>
-          <Link to={`/submitPage/${r._id}`}>Submit PageLink</Link>
-        </th>
-        <th>
-          <Link to={`/submissionPage/${r._id}`}>Submission page Link </Link>
-        </th>
-      </tr>
-    ));
+    const data = this.state.arr.map((r, index) => {
+      if (r._id) {
+        return (
+          <tr key={index}>
+            <th>{index}</th>
+            <th>{r.formName}</th>
+            <th>{this.state.numofSub} </th>
+            <th>
+              <Link to={`/submitPage/${r._id}`}>Submit PageLink</Link>
+            </th>
+            <th>
+              <Link to={`/submissionPage/${r._id}`}>Submission page Link </Link>
+            </th>
+          </tr>
+        );
+      }
+    });
 
     return (
       <div className="appTable">

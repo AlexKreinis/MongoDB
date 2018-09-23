@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   const newData = new Data({
-    name: req.body.name
+    inputData: req.body.inputData
   });
   newData.save().then(data => res.json(data));
 });
