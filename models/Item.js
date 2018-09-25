@@ -23,7 +23,8 @@ const ItemSchema = new Schema({
         required: true
       }
     }
-  ]
+  ],
+  numOfSubs: { type: Number, default: 5 }
 });
 
 module.exports = Item = mongoose.model('item', ItemSchema);

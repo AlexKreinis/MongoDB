@@ -24,10 +24,10 @@ mongoose
   .then(() => console.log('MongoDB connected...'))
   .catch(err => console.log(err));
 
-mongoose
-  .connect(data)
-  .then(() => console.log('data connected...'))
-  .catch(err => console.log(err));
+// mongoose
+//   .connect(data)
+//   .then(() => console.log('data connected...'))
+//   .catch(err => console.log(err));
 
 //use routes
 app.use('/api/items', items);

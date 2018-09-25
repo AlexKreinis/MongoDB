@@ -3,8 +3,9 @@ class submitPage extends Component {
   state = {
     arr: [],
     inputData: {
-      formID: '112abcs',
-      inputArr: ['aaa', 'bbb']
+      formID: '',
+      inputArr: [],
+      labelArr: []
     }
   };
   componentWillMount() {
@@ -13,24 +14,28 @@ class submitPage extends Component {
       .then(inputs =>
         this.setState(state => ({ arr: [state.arr, ...inputs] }))
       );
+    const { inputData } = this.state;
+    inputData.formID = this.props.match.params.id;
+    this.setState({ inputData });
   }
   handleChangeInp = e => {
-    const index = Number(e.target.name);
+    var temp = e.target.name.split('-');
+    const index = Number(temp[1]);
+    const name = temp[0];
     const { inputData } = this.state;
     inputData.inputArr[index] = e.target.value;
+    inputData.labelArr[index] = name;
     this.setState({ inputData });
   };
 
   sendingData = () => {
-    // var inputArr = this.state.inputData.inputArr;
-    // var formID = this.props.match.params.id;
     var inputData = this.state.inputData;
-    console.log(inputData);
+
     fetch('/api/datas', {
       method: 'POST',
-      body: JSON.stringify({ inputData: inputData }),
+      body: JSON.stringify({ inputData }),
       headers: {
-        'different-content': 'application'
+        'content-type': 'application/json'
       }
     });
     this.props.history.push('/');
@@ -50,8 +55,8 @@ class submitPage extends Component {
             <li key={index}>
               <label>{input.inputLabel}</label>
               <input
-                name={index}
-                //value={input.inputValue}
+                name={`${input.inputLabel}-${index}`}
+                placeholder={input.inputValue}
                 type={input.inputType}
                 onChange={this.handleChangeInp}
               />

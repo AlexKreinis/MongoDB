@@ -4,19 +4,8 @@ import './FormG.css';
 
 class FormG extends Component {
   state = {
-    formName: 'Test',
-    inputs: [
-      {
-        inputLabel: 'label',
-        inputType: 'text',
-        inputValue: 'value'
-      },
-      {
-        inputLabel: 'label2',
-        inputType: 'text',
-        inputValue: 'value2'
-      }
-    ],
+    formName: '',
+    inputs: [],
     tempInput: {
       inputLabel: '',
       inputType: '',
@@ -36,7 +25,12 @@ class FormG extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const inputs = [...this.state.inputs, this.state.tempInput];
-    this.setState({ inputs, tempInput: '' });
+    const tempInput = { inputLabel: '', inputType: '', inputValue: '' };
+    this.setState({ inputs, tempInput });
+    const { elements } = e.target;
+    elements['inputLabel'].value = '';
+    elements['inputType'].value = '';
+    elements['inputValue'].value = '';
   };
 
   sendingData = () => {

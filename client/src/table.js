@@ -5,14 +5,16 @@ import './table.css';
 class table extends Component {
   state = {
     arr: [],
-    numofSub: 0
+    numOfSub: 0
   };
   componentWillMount() {
     fetch('/api/items')
       .then(data => data.json())
-      .then(inputs =>
-        this.setState(state => ({ arr: [state.arr, ...inputs] }))
-      );
+      .then(inputs => {
+        this.setState(state => ({ arr: [state.arr, ...inputs] }));
+        const numOfSub = inputs.submits; //to test
+        this.setState(numOfSub);
+      });
   }
   render() {
     const data = this.state.arr.map((r, index) => {
@@ -21,7 +23,7 @@ class table extends Component {
           <tr key={index}>
             <th>{index}</th>
             <th>{r.formName}</th>
-            <th>{this.state.numofSub} </th>
+            <th>{this.state.numOfSub} </th>
             <th>
               <Link to={`/submitPage/${r._id}`}>Submit PageLink</Link>
             </th>
