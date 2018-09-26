@@ -10,7 +10,7 @@ class submissionPage extends Component {
       }
     ]
   };
-  componentWillMount() {
+  componentDidMount() {
     fetch('/api/datas')
       .then(data => data.json())
       .then(datas => {
@@ -22,30 +22,34 @@ class submissionPage extends Component {
         }));
       });
   }
+  // renderLabels() {
+  //   const { inputDataArr } = this.state;
+  //   return (
+  //     !!inputDataArr.length &&
+  //     inputDataArr[0].labelArr.map((label, index) => (
+  //       <th key={index}>{label}</th>
+  //     ))
+  //   );
+  // }
+
+  getInputs(data) {
+    if (data[0].inputArr && data[0]) {
+      return data[0].inputArr.map((value, index) => (
+        <tr key={index}>
+          <th>{value}</th>
+        </tr>
+      ));
+    }
+    return {};
+  }
 
   render() {
-    // const { inputDataArr } = this.state;
-    // const labels = inputDataArr[0].labelArr.map((r, index) => {
-    //   return (
-    //     <tr key={index}>
-    //       <th>{index}</th>
-    //       <th>{r[index]}</th>
-    //     </tr>
-    //   );
-    // });
-    // const labels = inputDataArr.labelArr.map((r, index) => {
-    //   return (
-    //     <tr key={index}>
-    //       <th>{index}</th>
-    //       <th>{r}</th>
-    //     </tr>
-    //   );
-    // });
-
-    // console.log(this.state.inputDataArr[0]);
-    console.log(this.state.inputData2[0].labelArr);
-
-    return <div className="app">{<table>a</table>}</div>;
+    const data = this.state.inputDataArr.map((input, index) => {
+      return { input };
+    });
+    console.log(data);
+    const input = this.getInputs(data);
+    return <div className="app">{console.log(input)}</div>;
   }
 }
 
