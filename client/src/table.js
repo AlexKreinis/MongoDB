@@ -7,13 +7,14 @@ class table extends Component {
     arr: [],
     numOfSub: 0
   };
-  componentWillMount() {
+  componentDidMount() {
     fetch('/api/items')
       .then(data => data.json())
       .then(inputs => {
         this.setState(state => ({ arr: [state.arr, ...inputs] }));
-        const numOfSub = inputs.submits; //to test
-        this.setState(numOfSub);
+        const numOfSub = inputs[0].numOfSubs;
+        console.log(numOfSub);
+        this.setState({ numOfSub });
       });
   }
   render() {
@@ -39,8 +40,8 @@ class table extends Component {
       <div className="appTable">
         <Link to="/form">Create a new form</Link>
         <br /> <br />
-        <table>
-          <tbody>
+        <tbody>
+          <table>
             <tr>
               <th>Form ID</th>
               <th>Form Name</th>
@@ -49,8 +50,8 @@ class table extends Component {
               <th>Submission page</th>
             </tr>
             {data}
-          </tbody>
-        </table>
+          </table>
+        </tbody>
       </div>
     );
   }

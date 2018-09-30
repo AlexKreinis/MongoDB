@@ -30,10 +30,18 @@ class submitPage extends Component {
 
   sendingData = () => {
     var inputData = this.state.inputData;
-
+    var _id = this.props.match.params.id;
     fetch('/api/datas', {
       method: 'POST',
       body: JSON.stringify({ inputData }),
+      headers: {
+        'content-type': 'application/json'
+      }
+    });
+
+    fetch('/api/items/increase', {
+      method: 'POST',
+      body: JSON.stringify({ _id }), //the ID I of the collection I want to increment
       headers: {
         'content-type': 'application/json'
       }

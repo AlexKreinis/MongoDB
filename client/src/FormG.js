@@ -8,7 +8,7 @@ class FormG extends Component {
     inputs: [],
     tempInput: {
       inputLabel: '',
-      inputType: '',
+      inputType: 'Please select a type',
       inputValue: ''
     }
   };
@@ -18,6 +18,11 @@ class FormG extends Component {
     this.setState(currentState => ({
       tempInput: { ...currentState.tempInput, [name]: value }
     }));
+  };
+  onSelect = ({ target }) => {
+    const { tempInput } = this.state;
+    tempInput.inputType = target.value;
+    this.setState({ tempInput });
   };
   formName = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -29,8 +34,9 @@ class FormG extends Component {
     this.setState({ inputs, tempInput });
     const { elements } = e.target;
     elements['inputLabel'].value = '';
-    elements['inputType'].value = '';
     elements['inputValue'].value = '';
+    tempInput.inputType = 'Please select a type';
+    this.setState({ tempInput });
   };
 
   sendingData = () => {
@@ -49,7 +55,7 @@ class FormG extends Component {
   render() {
     const inputs = this.state.inputs.map((r, i) => (
       <div key={i}>
-        <label for={r.inputLabel}> {r.inputLabel} </label>
+        <label htmlFor={r.inputLabel}> {r.inputLabel} </label>
         <input
           type={r.inputType}
           placeholder={r.inputValue}
@@ -57,14 +63,24 @@ class FormG extends Component {
         />
       </div>
     ));
+
     const formName = this.state.formName;
+    const value = this.state.tempInput.inputType;
+    const types = ['text', 'color', 'date', 'email', 'tel', 'number'];
     return (
       <div className="formG">
         <form className="form-maker" onSubmit={this.handleSubmit}>
           Label:
           <input name="inputLabel" type="text" onChange={this.handleChange} />
           Type:
-          <input name="inputType" type="text" onChange={this.handleChange} />
+          <select onChange={this.onSelect}>
+            <option selected={value === ''}>Please select a type</option>
+            {types.map(val => (
+              <option key={val} value={val} selected={val === value}>
+                {val}
+              </option>
+            ))}
+          </select>
           Value
           <input name="inputValue" type="text" onChange={this.handleChange} />
           Form Name

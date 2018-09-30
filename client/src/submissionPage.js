@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
+import './submissionPage.css';
 class submissionPage extends Component {
   state = {
-    inputDataArr: [],
-    inputData2: [
-      {
-        formID: 'test',
-        inputArr: [1, 2, 3],
-        labelArr: [4, 5, 6]
-      }
-    ]
+    inputDataArr: []
   };
   componentDidMount() {
     fetch('/api/datas')
@@ -22,34 +16,50 @@ class submissionPage extends Component {
         }));
       });
   }
-  // renderLabels() {
-  //   const { inputDataArr } = this.state;
-  //   return (
-  //     !!inputDataArr.length &&
-  //     inputDataArr[0].labelArr.map((label, index) => (
-  //       <th key={index}>{label}</th>
-  //     ))
-  //   );
-  // }
 
-  getInputs(data) {
-    if (data[0].inputArr && data[0]) {
-      return data[0].inputArr.map((value, index) => (
-        <tr key={index}>
-          <th>{value}</th>
-        </tr>
+  getLabels(data) {
+    if (data[0] && data[0].input) {
+      console.log(data[0].input);
+      return data[0].input.labelArr.map((value, index) => (
+        <th key={index}>{value}</th>
       ));
     }
-    return {};
+    return [];
+  }
+  getInputs(data) {
+    if (data) {
+      var table = data.map((val, index) => {
+        return (
+          <tr className="labelTr" key={index}>
+            {val.input.inputArr.map((val2, index2) => {
+              return <th key={index2}>{val2}</th>;
+            })}
+          </tr>
+        );
+      });
+      return table;
+    }
+    return [];
   }
 
   render() {
-    const data = this.state.inputDataArr.map((input, index) => {
+    const data = this.state.inputDataArr.map(input => {
       return { input };
     });
-    console.log(data);
+    const labels = this.getLabels(data);
     const input = this.getInputs(data);
-    return <div className="app">{console.log(input)}</div>;
+
+    return (
+      <div className="resultTable">
+        <h1> The submission table </h1>
+        <tbody>
+          <table>
+            <tr>{labels}</tr>
+            {input}
+          </table>
+        </tbody>
+      </div>
+    );
   }
 }
 

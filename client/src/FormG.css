@@ -63,3 +63,6 @@
 .form-display button:hover {
   background-color: #3498db;
 }
+select {
+  padding: 10px;
+}

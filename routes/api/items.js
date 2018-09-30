@@ -17,5 +17,18 @@ router.post('/', (req, res) => {
   });
   newItem.save().then(item => res.json(item));
 });
+router.post('/increase', (req, res, next) => {
+  const _id = req.body._id;
+
+  Item.findByIdAndUpdate(
+    _id,
+    { $inc: { numOfSubs: 1 } },
+    { new: true },
+    (err, updateRes) => {
+      if (err) return next(err);
+      return res.json({ sucess: true });
+    }
+  );
+});
 
 module.exports = router;
